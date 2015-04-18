@@ -18,7 +18,7 @@ public class MainScript : MonoBehaviour {
 	public GameObject mirillaIzq;
 	public GameObject mirillaDer;
 
-	private GameObject nextMirilla = null;
+	public GameObject nextMirilla = null;
 	private GameObject lastMirilla = null;
 
 	// Use this for initialization
@@ -31,6 +31,73 @@ public class MainScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	void Update() {
+
+		if (Input.GetMouseButtonDown (1)) {
+
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit)) {
+				if (hit.transform.gameObject == player) {
+					targetIzq = null;
+					targetDer = null;
+					
+					nextMirilla = null;
+				}
+			}
+
+			
+			if (nextMirilla == null) {
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+						targetIzq = hit.transform.gameObject;
+						targetDer = hit.transform.gameObject;
+						
+						nextMirilla = mirillaDer;
+					}
+				}
+			}
+			else if (nextMirilla == mirillaDer) {
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+						
+						if (targetDer == hit.transform.gameObject) {
+							targetIzq = hit.transform.gameObject;
+							nextMirilla = mirillaDer;
+						}
+						else {
+							targetDer = hit.transform.gameObject;
+							nextMirilla = mirillaIzq;
+						}
+						
+					}
+				}
+			}
+			else if (nextMirilla == mirillaIzq) {
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+						
+						if (targetIzq == hit.transform.gameObject) {
+							targetDer = hit.transform.gameObject;
+							nextMirilla = mirillaIzq;
+						}
+						else {
+							targetIzq = hit.transform.gameObject;
+							nextMirilla = mirillaDer;
+						}
+						
+					}
+				}
+			}
+			
+			
+		}
+
+	}
+
 	void FixedUpdate () {
 		/*
 		if(Input.GetMouseButtonDown(0))
@@ -46,60 +113,6 @@ public class MainScript : MonoBehaviour {
 
 		Move (h, v);
 
-
-		if (Input.GetMouseButtonDown (1)) {
-
-			if (nextMirilla == null) {
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (Physics.Raycast(ray, out hit)) {
-					if (hit.collider.tag == "Targetable") {
-						targetIzq = hit.transform.gameObject;
-						targetDer = hit.transform.gameObject;
-
-						nextMirilla = mirillaDer;
-					}
-				}
-			}
-			else if (nextMirilla == mirillaDer) {
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (Physics.Raycast(ray, out hit)) {
-					if (hit.collider.tag == "Targetable") {
-
-						if (targetDer == hit.transform.gameObject) {
-							targetIzq = hit.transform.gameObject;
-							nextMirilla = mirillaDer;
-						}
-						else {
-							targetDer = hit.transform.gameObject;
-							nextMirilla = mirillaIzq;
-						}
-
-					}
-				}
-			}
-			else if (nextMirilla == mirillaIzq) {
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (Physics.Raycast(ray, out hit)) {
-					if (hit.collider.tag == "Targetable") {
-
-						if (targetIzq == hit.transform.gameObject) {
-							targetDer = hit.transform.gameObject;
-							nextMirilla = mirillaIzq;
-						}
-						else {
-							targetIzq = hit.transform.gameObject;
-							nextMirilla = mirillaDer;
-						}
-
-					}
-				}
-			}
-
-
-		}
 
 		if (targetIzq != null) {
 			mirillaIzq.transform.position = targetIzq.transform.position + new Vector3 (0, 2, 0);
