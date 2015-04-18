@@ -1,5 +1,6 @@
 Library/
 ProjectSettings/
+Scenes/
 
 
 Assembly-CSharp.csproj
@@ -9,3 +10,5 @@ LudumDare32.userprefs
 LudumDare32-csharp.sln
 
 RubenScene.unity
+EricScene.unity
+YolandaScene.unity
