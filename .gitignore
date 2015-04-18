@@ -17,6 +17,7 @@ Assets/*.meta
 Assets/Audio/*.meta
 Assets/Materials/*.meta
 Assets/Models/*.meta
+Assets/Models/Materials/*.meta
 Assets/Textures/*.meta
 Assets/Scripts/*.meta
 Assets/Prefabs/*.meta
