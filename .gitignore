@@ -1,6 +1,6 @@
 Library/
 ProjectSettings/
-Scenes/
+Assets/Scenes/
 
 
 Assembly-CSharp.csproj
@@ -9,13 +9,13 @@ LudumDare32.sln
 LudumDare32.userprefs
 LudumDare32-csharp.sln
 
-RubenScene.unity
-EricScene.unity
-YolandaScene.unity
+Assets/RubenScene.unity
+Assets/EricScene.unity
+Assets/YolandaScene.unity
 
-*.meta
-Audio/*.meta
-Materials/*.meta
-Models/*.meta
-Textures/*.meta
-Scripts/*.meta
+Assets/*.meta
+Assets/Audio/*.meta
+Assets/Materials/*.meta
+Assets/Models/*.meta
+Assets/Textures/*.meta
+Assets/Scripts/*.meta
