@@ -10,7 +10,16 @@ public class MainScript : MonoBehaviour {
 	public float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
 	public GameObject invisibleFloor;
-	private GameObject target;
+
+
+	private GameObject targetIzq = null;
+	private GameObject targetDer = null;
+
+	public GameObject mirillaIzq;
+	public GameObject mirillaDer;
+
+	private GameObject nextMirilla = null;
+	private GameObject lastMirilla = null;
 
 	// Use this for initialization
 	void Start () {
@@ -40,15 +49,72 @@ public class MainScript : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (1)) {
 
-			target = null;
+			if (nextMirilla == null) {
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+						targetIzq = hit.transform.gameObject;
+						targetDer = hit.transform.gameObject;
 
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit)) {
-				if (hit.collider.tag == "Targetable") {
-					target = hit.transform.gameObject;
+						nextMirilla = mirillaDer;
+					}
 				}
 			}
+			else if (nextMirilla == mirillaDer) {
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+
+						if (targetDer == hit.transform.gameObject) {
+							targetIzq = hit.transform.gameObject;
+							nextMirilla = mirillaDer;
+						}
+						else {
+							targetDer = hit.transform.gameObject;
+							nextMirilla = mirillaIzq;
+						}
+
+					}
+				}
+			}
+			else if (nextMirilla == mirillaIzq) {
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit)) {
+					if (hit.collider.tag == "Targetable") {
+
+						if (targetIzq == hit.transform.gameObject) {
+							targetDer = hit.transform.gameObject;
+							nextMirilla = mirillaIzq;
+						}
+						else {
+							targetIzq = hit.transform.gameObject;
+							nextMirilla = mirillaDer;
+						}
+
+					}
+				}
+			}
+
+
+		}
+
+		if (targetIzq != null) {
+			mirillaIzq.transform.position = targetIzq.transform.position + new Vector3 (0, 2, 0);
+			mirillaIzq.transform.LookAt (Camera.main.transform.position, Vector3.up);
+			mirillaIzq.transform.Rotate (new Vector3 (90, 0, 0));
+		} else {
+			mirillaIzq.transform.position = new Vector3(0, -999999, 0);
+		}
+
+		if (targetDer != null) {
+			mirillaDer.transform.position = targetDer.transform.position + new Vector3 (0, 2, 0);
+			mirillaDer.transform.LookAt (Camera.main.transform.position, Vector3.up);
+			mirillaDer.transform.Rotate (new Vector3 (90, 0, 0));
+		} else {
+			mirillaDer.transform.position = new Vector3(0, -999999, 0);
 		}
 
 
@@ -73,7 +139,7 @@ public class MainScript : MonoBehaviour {
     {
 
 
-		if (target == null) {
+		if (targetIzq == null || true) {
 
 			// GIRA SEGUN EL RATON Y EL SUELO
 			// Create a ray from the mouse cursor on screen in the direction of the camera.
@@ -101,7 +167,7 @@ public class MainScript : MonoBehaviour {
 		} else {
 
 			// GIRA MIRANDO AL TARGET
-			Vector3 playerToTarget = target.transform.position - player.transform.position;
+			Vector3 playerToTarget = targetIzq.transform.position - player.transform.position;
 			
 			// Ensure the vector is entirely along the floor plane.
 			playerToTarget.y = 0f;
