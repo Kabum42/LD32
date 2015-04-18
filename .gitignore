@@ -12,3 +12,10 @@ LudumDare32-csharp.sln
 RubenScene.unity
 EricScene.unity
 YolandaScene.unity
+
+*.meta
+Audio/*.meta
+Materials/*.meta
+Models/*.meta
+Textures/*.meta
+Scripts/*.meta
