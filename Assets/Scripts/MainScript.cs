@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainScript : MonoBehaviour {
+public class MainScript : MonoBehaviour
+{
 
 	public GameObject player;
 	Vector3 movement;
@@ -12,16 +13,18 @@ public class MainScript : MonoBehaviour {
 	public GameObject target;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 
 		playerRigidbody = player.GetComponent<Rigidbody> ();
 
-		floorMask = LayerMask.GetMask("Floor");
+		floorMask = LayerMask.GetMask ("Floor");
 	
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
 		/*
 		if(Input.GetMouseButtonDown(0))
 			Debug.Log("Pressed left click.");
@@ -39,9 +42,9 @@ public class MainScript : MonoBehaviour {
 
 			target = null;
 
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit)) {
+			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Targetable") {
 					target = hit.transform.gameObject;
 				}
@@ -49,39 +52,41 @@ public class MainScript : MonoBehaviour {
 		}
 
 
-		Facing();
+		Facing ();
 		//Debug.Log ("LOL");
 	
 	}
 
-	void Move(float h, float v) {
+	void Move (float h, float v)
+	{
 
-		float speed = 6f;
+		float speed = 10f;
 
 		movement.Set (h, 0f, v);
 
-		movement = movement.normalized * speed * Time.deltaTime;
+		movement = movement.normalized * speed; //* Time.deltaTime;
 
-		playerRigidbody.MovePosition (player.transform.position + movement);
+		//playerRigidbody.MovePosition (player.transform.position + movement);
+		
+		transform.position = Vector3.Lerp (player.transform.position, player.transform.position + movement, Time.deltaTime); 
 
 	}
 
-    void Facing()
-    {
+	void Facing ()
+	{
 
 
 		if (target == null) {
 
 			// GIRA SEGUN EL RATON Y EL SUELO
 			// Create a ray from the mouse cursor on screen in the direction of the camera.
-			Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 			
 			// Create a RaycastHit variable to store information about what was hit by the ray.
 			RaycastHit floorHit;
 			
 			// Perform the raycast and if it hits something on the floor layer...
-			if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-			{
+			if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
 				// Create a vector from the player to the point on the floor the raycast from the mouse hit.
 				Vector3 playerToMouse = floorHit.point - player.transform.position;
 				
@@ -89,10 +94,10 @@ public class MainScript : MonoBehaviour {
 				playerToMouse.y = 0f;
 				
 				// Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-				Quaternion newRotation = Quaternion.LookRotation(-playerToMouse);
+				Quaternion newRotation = Quaternion.LookRotation (-playerToMouse);
 				
 				// Set the player's rotation to this new rotation.
-				playerRigidbody.MoveRotation(newRotation);
+				playerRigidbody.MoveRotation (newRotation);
 			}
 
 		} else {
@@ -104,14 +109,14 @@ public class MainScript : MonoBehaviour {
 			playerToTarget.y = 0f;
 			
 			// Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-			Quaternion newRotation = Quaternion.LookRotation(-playerToTarget);
+			Quaternion newRotation = Quaternion.LookRotation (-playerToTarget);
 			
 			// Set the player's rotation to this new rotation.
-			playerRigidbody.MoveRotation(newRotation);
+			playerRigidbody.MoveRotation (newRotation);
 
 		}
 
         
-    }
+	}
 
 }
