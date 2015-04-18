@@ -9,7 +9,8 @@ public class MainScript : MonoBehaviour {
 	public int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
 	public float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
-	public GameObject target;
+	public GameObject invisibleFloor;
+	private GameObject target;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +29,8 @@ public class MainScript : MonoBehaviour {
 		if(Input.GetMouseButtonDown(1))
 			Debug.Log("Pressed right click.");
 		*/
+
+		invisibleFloor.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
 		float h = Input.GetAxisRaw ("Horizontal");
 		float v = Input.GetAxisRaw ("Vertical");

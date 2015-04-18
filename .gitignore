@@ -1,6 +1,7 @@
 Library/
 ProjectSettings/
 Assets/Scenes/
+Temp/
 
 
 Assembly-CSharp.csproj
@@ -8,6 +9,9 @@ Assembly-CSharp-vs.csproj
 LudumDare32.sln
 LudumDare32.userprefs
 LudumDare32-csharp.sln
+LD32.sln
+LD32.userprefs
+LD32-csharp.sln
 
 Assets/RubenScene.unity
 Assets/EricScene.unity
