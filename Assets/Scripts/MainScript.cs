@@ -19,7 +19,13 @@ public class MainScript : MonoBehaviour {
 	public GameObject mirillaDer;
 
 	public GameObject nextMirilla = null;
-	private GameObject lastMirilla = null;
+	private GameObject nextTarget = null;
+
+	private float maxCooldown = 1f;
+	private float cooldown = 1f;
+
+	public bool killAnimation = false;
+	public float killAnimationTimer = 0.9f;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +39,114 @@ public class MainScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 
+		transform.position = player.transform.position;
+
+		if (killAnimation) {
+			killAnimationTimer -= Time.deltaTime*10f;
+			if (killAnimationTimer <= -0.9f) {
+				killAnimationTimer = 0.9f;
+				killAnimation = false;
+			}
+		}
+
+		cooldown += Time.deltaTime;
+		if (cooldown >= maxCooldown) {
+			cooldown = maxCooldown;
+		}
+		
+		if (Input.GetMouseButtonDown (0)) {
+
+			player.GetComponent<AudioSource> ().Play ();
+			cooldown = 0;
+			maxCooldown = 1f;
+			
+			if (nextTarget!= null) {
+				nextTarget.GetComponent<LifeScript>().lifePoints -= 10f;
+
+				if (nextTarget.GetComponent<LifeScript>().lifePoints <= 0f) {
+
+					killAnimation = true;
+					killAnimationTimer = 0.9f;
+					this.GetComponent<AudioSource> ().Play ();
+
+					if (targetIzq == targetDer) {
+						targetIzq = null;
+						targetDer = null;
+
+						nextMirilla = null;
+						nextTarget = null;
+					}
+					else if (nextTarget == targetIzq) {
+						targetIzq = targetDer;
+						nextTarget = targetDer;
+					}
+					else if (nextTarget == targetDer) {
+						targetDer = targetIzq;
+						nextTarget = targetIzq;
+					}
+				}
+				else {
+					// EL TARGET AL QUE LE DISPARO, SIGUE VIVO
+					if (nextTarget == targetIzq) {
+						nextTarget = targetDer;
+					}
+					else if (nextTarget == targetDer) {
+						nextTarget = targetIzq;
+					}
+				}
+			}
+		} else if (Input.GetMouseButton (0)) {
+			
+			maxCooldown -= Time.deltaTime/2f;
+			if (maxCooldown <= 0.15f) { maxCooldown = 0.15f; }
+			
+			if (cooldown >= maxCooldown) {
+				cooldown = 0;
+				player.GetComponent<AudioSource> ().Play ();
+				
+				if (nextTarget!= null) {
+					nextTarget.GetComponent<LifeScript>().lifePoints -= 10f;
+
+					if (nextTarget.GetComponent<LifeScript>().lifePoints <= 0f) {
+
+						killAnimation = true;
+						killAnimationTimer = 0.9f;
+						this.GetComponent<AudioSource> ().Play ();
+
+						if (targetIzq == targetDer) {
+							targetIzq = null;
+							targetDer = null;
+
+							nextMirilla = null;
+							nextTarget = null;
+						}
+						else if (nextTarget == targetIzq) {
+							targetIzq = targetDer;
+							nextTarget = targetDer;
+						}
+						else if (nextTarget == targetDer) {
+							targetDer = targetIzq;
+							nextTarget = targetIzq;
+						}
+					}
+					else {
+						// EL TARGET AL QUE LE DISPARO, SIGUE VIVO
+						if (nextTarget == targetIzq) {
+							nextTarget = targetDer;
+						}
+						else if (nextTarget == targetDer) {
+							nextTarget = targetIzq;
+						}
+					}
+
+				}
+			}
+		}
+		else {
+			maxCooldown = 1f;
+		}
+
+
 		if (Input.GetMouseButtonDown (1)) {
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -43,6 +157,7 @@ public class MainScript : MonoBehaviour {
 					targetDer = null;
 					
 					nextMirilla = null;
+					nextTarget = null;
 				}
 			}
 
@@ -55,6 +170,7 @@ public class MainScript : MonoBehaviour {
 						targetDer = hit.transform.gameObject;
 						
 						nextMirilla = mirillaDer;
+						nextTarget = targetIzq;
 					}
 				}
 			}
@@ -99,12 +215,8 @@ public class MainScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		/*
-		if(Input.GetMouseButtonDown(0))
-			Debug.Log("Pressed left click.");
-		if(Input.GetMouseButtonDown(1))
-			Debug.Log("Pressed right click.");
-		*/
+
+
 
 		invisibleFloor.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
@@ -132,7 +244,6 @@ public class MainScript : MonoBehaviour {
 
 
 		Facing();
-		//Debug.Log ("LOL");
 	
 	}
 
@@ -171,7 +282,7 @@ public class MainScript : MonoBehaviour {
 				playerToMouse.y = 0f;
 				
 				// Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-				Quaternion newRotation = Quaternion.LookRotation(-playerToMouse);
+				Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
 				
 				// Set the player's rotation to this new rotation.
 				playerRigidbody.MoveRotation(newRotation);
@@ -195,5 +306,6 @@ public class MainScript : MonoBehaviour {
 
         
     }
+	
 
 }
