@@ -13,8 +13,8 @@ public class MainScript : MonoBehaviour {
 	public GameObject invisibleFloor;
 	
 	
-	private GameObject targetIzq = null;
-	private GameObject targetDer = null;
+	public GameObject targetIzq = null;
+	public GameObject targetDer = null;
 	
 	public GameObject mirillaIzq;
 	public GameObject mirillaDer;
@@ -253,7 +253,7 @@ public class MainScript : MonoBehaviour {
 		}
 		
 		
-		Facing();
+		//Facing();
 		
 	}
 	
@@ -277,6 +277,7 @@ public class MainScript : MonoBehaviour {
 			
 			// GIRA SEGUN EL RATON Y EL SUELO
 			// Create a ray from the mouse cursor on screen in the direction of the camera.
+
 			Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			
 			// Create a RaycastHit variable to store information about what was hit by the ray.
@@ -297,6 +298,7 @@ public class MainScript : MonoBehaviour {
 				// Set the player's rotation to this new rotation.
 				playerRigidbody.MoveRotation(newRotation);
 			}
+
 			
 		} else {
 			
