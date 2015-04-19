@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\JumpScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\particleCollision.cs">
     <Files>
-      <File FileName="Assets\Scripts\JumpScript.cs" Line="86" Column="22" />
-      <File FileName="Assets\Scripts\MainScript.cs" Line="67" Column="42" />
+      <File FileName="Assets\Scripts\particleCollision.cs" Line="54" Column="4" />
+      <File FileName="Assets\Scripts\DestroyBlood.cs" Line="11" Column="1" />
+      <File FileName="Assets\Scripts\projectorManager.cs" Line="8" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

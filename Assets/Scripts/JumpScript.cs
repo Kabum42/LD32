@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class JumpScript : MonoBehaviour
@@ -9,7 +9,7 @@ public class JumpScript : MonoBehaviour
 	public bool canJump = true;
 	public bool canDoubleJump = false;
 	public bool canBounce = false;
-	float hitDist = 0.1f;
+	float hitDist = 2;
 	public float bounceDist = 500;
 	public float verticalJump = 400;
 	bool keyReleased = false;
@@ -68,25 +68,25 @@ public class JumpScript : MonoBehaviour
 		//check collision with walls an apply forces
 		
 		if (!canJump && keyReleased && bounceTimer > 0.5) {
-			if (Physics.Raycast (transform.position, Vector3.forward, out hit, 2, obstacles)) {
+			if (Physics.Raycast (transform.position, Vector3.forward, out hit, hitDist, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, hitDist, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, hitDist, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, hitDist, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
