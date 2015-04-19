@@ -68,25 +68,25 @@ public class JumpScript : MonoBehaviour
 		//check collision with walls an apply forces
 		
 		if (!canJump && keyReleased && bounceTimer > 0.5) {
-			if (Physics.Raycast (transform.position, Vector3.forward, out hit, 2, obstacles)) {
+			if (Physics.Raycast (transform.position, Vector3.forward, out hit, 3, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, 3, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, 3, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, 2, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, 3, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;

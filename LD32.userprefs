@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\JumpScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\JumpScript.cs" Line="86" Column="22" />
-      <File FileName="Assets\Scripts\MainScript.cs" Line="67" Column="42" />
+      <File FileName="Assets\Scripts\MainScript.cs" Line="46" Column="5" />
+      <File FileName="Assets\Scripts\JumpScript.cs" Line="29" Column="36" />
+      <File FileName="Assets\Scripts\LifeScript.cs" Line="10" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
