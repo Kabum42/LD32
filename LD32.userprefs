@@ -1,10 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\particleCollision.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\projectorManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\particleCollision.cs" Line="54" Column="4" />
-      <File FileName="Assets\Scripts\DestroyBlood.cs" Line="11" Column="1" />
-      <File FileName="Assets\Scripts\projectorManager.cs" Line="8" Column="35" />
+      <File FileName="Assets\Scripts\particleCollision.cs" Line="51" Column="154" />
+      <File FileName="Assets\Scripts\DestroyBlood.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\projectorManager.cs" Line="19" Column="47" />
+      <File FileName="Assets\Scripts\shotEmission.cs" Line="15" Column="84" />
+      <File FileName="Assets\Scripts\JumpScript.cs" Line="18" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
