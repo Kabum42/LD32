@@ -9,10 +9,7 @@ public class MainScript : MonoBehaviour {
 	public int floorMask; 
 	public int targetableMask; // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
 	public float camRayLength = 100f;          // The length of the ray from the camera into the scene.
-	
-	public GameObject invisibleFloor;
-	
-	
+
 	public GameObject targetIzq = null;
 	public GameObject targetDer = null;
 	
@@ -70,7 +67,7 @@ public class MainScript : MonoBehaviour {
 		mirillaDer.transform.localScale = new Vector3(0.15f + 0.15f * aux, 0.15f + 0.15f * aux, 0.15f + 0.15f * aux);
 
 		
-		if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (0) && (targetIzq != null || targetDer != null)) {
 			
 			player.GetComponent<AudioSource> ().Play ();
 			cooldown = 0;
@@ -108,7 +105,7 @@ public class MainScript : MonoBehaviour {
 					}
 				}
 			}
-		} else if (Input.GetMouseButton (0)) {
+		} else if (Input.GetMouseButton (0) && (targetIzq != null || targetDer != null)) {
 			
 			maxCooldown -= Time.deltaTime/2f;
 			if (maxCooldown <= 0.15f) { maxCooldown = 0.15f; }
@@ -228,7 +225,7 @@ public class MainScript : MonoBehaviour {
 
 		
 		
-		invisibleFloor.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+		//invisibleFloor.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 		
 		float h = Input.GetAxisRaw ("Horizontal");
 		float v = Input.GetAxisRaw ("Vertical");
@@ -254,6 +251,8 @@ public class MainScript : MonoBehaviour {
 		
 		
 		//Facing();
+
+		Highlight ();
 		
 	}
 	
@@ -267,6 +266,31 @@ public class MainScript : MonoBehaviour {
 		
 		playerRigidbody.MovePosition (player.transform.position + movement);
 		
+	}
+
+	void Highlight() {
+
+		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		// Create a RaycastHit variable to store information about what was hit by the ray.
+		RaycastHit floorHit;
+		
+		// Perform the raycast and if it hits something on the floor layer...
+		if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
+		{
+			// Create a vector from the player to the point on the floor the raycast from the mouse hit.
+			Vector3 playerToMouse = floorHit.point - player.transform.position;
+			
+			// Ensure the vector is entirely along the floor plane.
+			playerToMouse.y = 0f;
+			
+			// Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+			Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+			
+			// Set the player's rotation to this new rotation.
+			playerRigidbody.MoveRotation(newRotation);
+		}
+
 	}
 	
 	void Facing()
