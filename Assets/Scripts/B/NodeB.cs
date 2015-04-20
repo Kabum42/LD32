@@ -1,0 +1,48 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class NodeB : IBHeapItem<NodeB> {
+
+	public bool walkable;//int height;
+	public int height;
+	public Vector3 worldPos;
+
+	public int gCost;
+	public int hCost;
+
+	public NodeB parent;
+	int heapIndex;
+
+	public int gridX, gridY;
+
+	public int BfCost {
+		get {
+			return gCost - hCost;
+		}
+	}
+
+	public NodeB(int _height/*bool _walkable*/, Vector3 _worldPos, int _gridX, int _gridY){
+		//walkable = _walkable;
+		height = _height;
+		worldPos = _worldPos;
+		gridX = _gridX;
+		gridY = _gridY;
+	}
+
+	public int HeapIndex{
+		get{
+			return heapIndex;
+		}
+		set{
+			heapIndex = value;
+		}
+	}
+
+	public int CompareTo(NodeB nodeToCompare){
+		int compare = BfCost.CompareTo(nodeToCompare.BfCost);
+		if (compare == 0) {
+			compare = -hCost.CompareTo(nodeToCompare.hCost);
+		}
+		return -compare;
+	}
+}
