@@ -56,7 +56,7 @@ public class JumpScript : MonoBehaviour
 
 
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) && !this.GetComponent<SkeletonScript>().main.GetComponent<MainScript>().killAnimation) {
 		
 			if (canBounce && keyReleased) {
 

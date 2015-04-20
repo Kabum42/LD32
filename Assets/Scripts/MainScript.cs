@@ -82,6 +82,7 @@ public class MainScript : MonoBehaviour {
 			
 			if (nextTarget!= null) {
 				nextTarget.GetComponent<LifeScript>().lifePoints -= 10f;
+				nextTarget.GetComponent<shotEmission>().createEmission(nextTarget.transform.position - player.transform.position, nextTarget.transform.position + new Vector3(0, 2, 0));
 				
 				if (nextTarget.GetComponent<LifeScript>().lifePoints <= 0f) {
 
@@ -123,6 +124,7 @@ public class MainScript : MonoBehaviour {
 				
 				if (nextTarget!= null) {
 					nextTarget.GetComponent<LifeScript>().lifePoints -= 10f;
+					nextTarget.GetComponent<shotEmission>().createEmission(nextTarget.transform.position - player.transform.position, nextTarget.transform.position + new Vector3(0, 2, 0));
 					
 					if (nextTarget.GetComponent<LifeScript>().lifePoints <= 0f) {
 
@@ -236,8 +238,11 @@ public class MainScript : MonoBehaviour {
 		
 		float h = Input.GetAxisRaw ("Horizontal");
 		float v = Input.GetAxisRaw ("Vertical");
-		
-		Move (h, v);
+
+		if (!killAnimation) {
+			Move (h, v);
+		}
+
 		
 		
 		if (targetIzq != null) {

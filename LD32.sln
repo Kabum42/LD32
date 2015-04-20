@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{A4A85574-DBD4-6223-647A-7C9B45375712}") = "LD32", "Assembly-CSharp-firstpass.csproj", "{6AC5EA00-A370-87EE-6A9A-1B36890FC6AE}"
+EndProject
 Project("{A4A85574-DBD4-6223-647A-7C9B45375712}") = "LD32", "Assembly-CSharp.csproj", "{7FE5A5E2-B347-A444-EEB9-2280A09CBAF8}"
 EndProject
 Project("{A4A85574-DBD4-6223-647A-7C9B45375712}") = "LD32", "Assembly-CSharp-Editor.csproj", "{405F9FD1-19D4-284A-23B0-3875A7108D32}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AC5EA00-A370-87EE-6A9A-1B36890FC6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC5EA00-A370-87EE-6A9A-1B36890FC6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC5EA00-A370-87EE-6A9A-1B36890FC6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC5EA00-A370-87EE-6A9A-1B36890FC6AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FE5A5E2-B347-A444-EEB9-2280A09CBAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FE5A5E2-B347-A444-EEB9-2280A09CBAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE5A5E2-B347-A444-EEB9-2280A09CBAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -23,7 +29,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																															GlobalSection(MonoDevelopProperties) = preSolution
+																																			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
