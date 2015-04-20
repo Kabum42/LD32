@@ -18,7 +18,7 @@ public class shotEmission : MonoBehaviour
 		createShot (direction, position);
 	}
 	
-	void createEmission (Vector3 direction, Vector3 position)
+	public void createEmission (Vector3 direction, Vector3 position)
 	{
 		myParticles = (GameObject)(Instantiate (Resources.Load ("Blood"), new Vector3 (position.x, position.y, position.z), Quaternion.identity));
 		myParticles.transform.LookAt (myTransform.position + new Vector3 (0, 2, 0) + direction);
