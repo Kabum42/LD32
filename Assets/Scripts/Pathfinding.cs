@@ -8,7 +8,7 @@ public class Pathfinding : MonoBehaviour {
 	//public Transform seeker, target;
 	PathRequestManager requestManager;
 	Grid grid;
-	int searchRange = 100;
+	int searchRange = 200;
 
 	void Awake() {
 		requestManager = GetComponent<PathRequestManager>();
