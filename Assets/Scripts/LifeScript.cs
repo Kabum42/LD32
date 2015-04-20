@@ -39,6 +39,9 @@ public class LifeScript : MonoBehaviour {
 					main.GetComponent<MainScript>().GetComponent<AudioSource> ().Play ();
 					alive = false;
 					transform.position = new Vector3(0, -99999, 0);
+
+					player.GetComponent<Animator> ().SetTrigger("Executing");
+					player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetTrigger("Executing");
 				}
 			}
 		}

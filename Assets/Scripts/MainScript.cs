@@ -49,10 +49,15 @@ public class MainScript : MonoBehaviour {
 		transform.position = player.transform.position;
 		
 		if (killAnimation) {
-			killAnimationTimer -= Time.deltaTime*10f;
+			
+			killAnimationTimer -= Time.deltaTime*(1f/Time.timeScale);
 			if (killAnimationTimer <= -0.9f) {
 				killAnimationTimer = 0.9f;
 				killAnimation = false;
+
+				player.GetComponent<Animator> ().SetTrigger("Executed");
+				player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetTrigger("Executed");
+				
 			}
 		}
 		
@@ -257,6 +262,14 @@ public class MainScript : MonoBehaviour {
 	}
 	
 	void Move(float h, float v) {
+
+		if (h == 0 && v == 0) {
+			player.GetComponent<Animator> ().SetBool ("Moving", false);
+			player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Moving", false);
+		} else {
+			player.GetComponent<Animator>().SetBool("Moving", true);
+			player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Moving", true);
+		}
 		
 		float speed = 6f;
 		

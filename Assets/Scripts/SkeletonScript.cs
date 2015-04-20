@@ -8,6 +8,8 @@ public class SkeletonScript : MonoBehaviour {
 	public GameObject rightHand;
 	public GameObject feet;
 
+	private float sonic = 0f;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -19,10 +21,32 @@ public class SkeletonScript : MonoBehaviour {
 		leftHand.transform.position = transform.position;
 		rightHand.transform.position = transform.position;
 		feet.transform.position = transform.position;
+
+		//Debug.Log (this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash);
+		//Debug.Log (Animator.StringToHash("Idle"));
+		/*
+		if (this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Balling")) {
+			sonic += Time.deltaTime*1000f;
+			while (sonic > 360) {
+				sonic -= 360;
+			}
+
+			this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0.1f, 0), this.gameObject.transform.right, -sonic);
+			//feet.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0.1f, 0), this.gameObject.transform.right, -sonic);
+
+			//this.gameObject.transform.localEulerAngles = new Vector3(0 -sonic, this.gameObject.transform.localEulerAngles.y, this.gameObject.transform.localEulerAngles.z); 
+		}
+		*/
 	
 	}
 
 	void FixedUpdate() {
+
+		this.transform.eulerAngles = new Vector3 (this.transform.eulerAngles.x, this.transform.eulerAngles.y + 180f, this.transform.eulerAngles.z);
+		leftHand.transform.eulerAngles = new Vector3 (leftHand.transform.eulerAngles.x, leftHand.transform.eulerAngles.y + 180f, leftHand.transform.eulerAngles.z);
+		rightHand.transform.eulerAngles = new Vector3 (rightHand.transform.eulerAngles.x, rightHand.transform.eulerAngles.y + 180f, rightHand.transform.eulerAngles.z);
+		feet.transform.eulerAngles = new Vector3 (feet.transform.eulerAngles.x, feet.transform.eulerAngles.y + 180f, feet.transform.eulerAngles.z);
+
 		float h = Input.GetAxisRaw ("Horizontal");
 		float v = Input.GetAxisRaw ("Vertical");
 
@@ -67,6 +91,11 @@ public class SkeletonScript : MonoBehaviour {
 				rightHand.transform.eulerAngles = new Vector3(0, 0, 0);
 			}
 		}
+
+		this.transform.eulerAngles = new Vector3 (this.transform.eulerAngles.x, this.transform.eulerAngles.y - 180f, this.transform.eulerAngles.z);
+		leftHand.transform.eulerAngles = new Vector3 (leftHand.transform.eulerAngles.x, leftHand.transform.eulerAngles.y - 180f, leftHand.transform.eulerAngles.z);
+		rightHand.transform.eulerAngles = new Vector3 (rightHand.transform.eulerAngles.x, rightHand.transform.eulerAngles.y - 180f, rightHand.transform.eulerAngles.z);
+		feet.transform.eulerAngles = new Vector3 (feet.transform.eulerAngles.x, feet.transform.eulerAngles.y - 180f, feet.transform.eulerAngles.z);
 
 	}
 }
