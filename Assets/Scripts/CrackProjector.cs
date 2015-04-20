@@ -4,7 +4,7 @@ using System.Collections;
 public class CrackProjector : MonoBehaviour
 {
 	int crackNum;
-	float testTime = 3;
+	float testTime = 1;
 	bool test = true;
 	Transform transform;
 	
