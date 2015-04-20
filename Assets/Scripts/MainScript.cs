@@ -57,6 +57,8 @@ public class MainScript : MonoBehaviour {
 
 				player.GetComponent<Animator> ().SetTrigger("Executed");
 				player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetTrigger("Executed");
+				player.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetTrigger("Executed");
+				player.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetTrigger("Executed");
 				
 			}
 		}
@@ -266,9 +268,13 @@ public class MainScript : MonoBehaviour {
 		if (h == 0 && v == 0) {
 			player.GetComponent<Animator> ().SetBool ("Moving", false);
 			player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Moving", false);
+			player.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Moving", false);
+			player.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Moving", false);
 		} else {
 			player.GetComponent<Animator>().SetBool("Moving", true);
 			player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Moving", true);
+			player.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Moving", true);
+			player.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Moving", true);
 		}
 		
 		float speed = 6f;

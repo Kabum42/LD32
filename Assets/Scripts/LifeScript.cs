@@ -40,8 +40,10 @@ public class LifeScript : MonoBehaviour {
 					alive = false;
 					transform.position = new Vector3(0, -99999, 0);
 
-					player.GetComponent<Animator> ().SetTrigger("Executing");
-					player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetTrigger("Executing");
+					player.GetComponent<Animator> ().Play("Slaughtering");
+					player.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Slaughtering");
+					player.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Slaughtering");
+					player.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Slaughtering");
 				}
 			}
 		}

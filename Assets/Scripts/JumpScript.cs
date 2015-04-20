@@ -30,12 +30,16 @@ public class JumpScript : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.Space))
 			keyReleased = true;
 
-		if (my_rigidbody.velocity.y < -0.1f) {
+		if (my_rigidbody.velocity.y < -0.1f && !(this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Slaughtering"))) {
 			this.GetComponent<Animator> ().SetBool ("Falling", true);
 			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", true);
+			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", true);
+			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", true);
 		} else {
 			this.GetComponent<Animator> ().SetBool ("Falling", false);
 			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", false);
+			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", false);
+			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", false);
 			/*
 			if (this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Falling")) {
 				this.GetComponent<Animator> ().Play("Idle");
@@ -78,6 +82,8 @@ public class JumpScript : MonoBehaviour
 					keyReleased = false;
 					this.GetComponent<Animator> ().Play("Jumping");
 					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Jumping");
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Jumping");
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Jumping");
 				}
 				
 				if (canDoubleJump && keyReleased) {
@@ -88,6 +94,8 @@ public class JumpScript : MonoBehaviour
 					keyReleased = false;
 					this.GetComponent<Animator> ().Play("Balling");
 					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Balling");
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Balling");
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Balling");
 				}
 			}	
 		}

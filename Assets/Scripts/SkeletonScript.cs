@@ -7,6 +7,8 @@ public class SkeletonScript : MonoBehaviour {
 	public GameObject leftHand;
 	public GameObject rightHand;
 	public GameObject feet;
+	public GameObject bigCarrot;
+	public GameObject auxCarrot;
 
 	private float sonic = 0f;
 
@@ -37,6 +39,19 @@ public class SkeletonScript : MonoBehaviour {
 			//this.gameObject.transform.localEulerAngles = new Vector3(0 -sonic, this.gameObject.transform.localEulerAngles.y, this.gameObject.transform.localEulerAngles.z); 
 		}
 		*/
+
+		if (main.GetComponent<MainScript> ().killAnimation && main.GetComponent<MainScript> ().killAnimationTimer >= -0.5f) {
+
+			if (auxCarrot == null)  { 
+				auxCarrot = (GameObject) Instantiate(bigCarrot);
+			}
+
+			auxCarrot.transform.position = this.gameObject.transform.FindChild ("Armature.001/Stomach/Chest/Hand.R/Carrot").transform.position;
+			auxCarrot.transform.eulerAngles = this.gameObject.transform.FindChild ("Armature.001/Stomach/Chest/Hand.R/Carrot").transform.eulerAngles;
+			auxCarrot.transform.RotateAround(auxCarrot.transform.position, auxCarrot.transform.right, 180f);
+		} else {
+			auxCarrot = null;
+		}
 	
 	}
 
