@@ -32,7 +32,7 @@ public class JumpScript : MonoBehaviour
 
 		if (my_rigidbody.velocity.y < -0.1f && !this.GetComponent<Animator> ().GetBool("Falling") && !(this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Slaughtering"))) {
 
-			Debug.Log ("LOL");
+
 
 			this.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
 			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
