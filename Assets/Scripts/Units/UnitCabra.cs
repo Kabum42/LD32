@@ -5,7 +5,7 @@ public class UnitCabra : MonoBehaviour {
 
 	public Transform target;
 	Rigidbody targetRigidbody;
-	float jumpForce = 8f;
+	float jumpForce = 8f * 2f;
 	Rigidbody rigidbody;
 	float speed = 12f;
 	Vector3[] path;

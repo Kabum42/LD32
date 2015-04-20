@@ -5,14 +5,15 @@ public class UnitCerdo : MonoBehaviour {
 
 	public Transform target;
 	Rigidbody targetRigidbody;
-	float jumpForce = 8f;
+	float jumpForce = 8f *2f;
 	Rigidbody rigidbody;
 	float speed = 5f;
 	Vector3[] path;
 	int targetIndex;
 
 	float attackRange = 20f;
-	float attackJump = 20f;
+	float attackJump = 20f * 2f;
+	float attackForce = 1000f;
 	bool ableToAttack = false;
 	bool chargingAttack = false;
 	bool attacking = false;
@@ -56,8 +57,10 @@ public class UnitCerdo : MonoBehaviour {
 				if (attackCooldownTimer == 0f){
 					RaycastHit[] affected = Physics.SphereCastAll(transform.position, 100f, new Vector3(0,1,0), 100f, characters);
 					foreach(RaycastHit item in affected){
-						if(!item.transform.Equals(this.transform)) item.rigidbody.AddForce((item.transform.position - transform.position + Vector3.up * 2f).normalized * 1000f / Mathf.Sqrt(Vector3.Distance(item.transform.position, transform.position)));
+						if(!item.transform.Equals(this.transform)) item.rigidbody.AddForce((item.transform.position - transform.position + Vector3.up * 2f).normalized * attackForce / Mathf.Sqrt(Vector3.Distance(item.transform.position, transform.position)));
 					}
+					this.rigidbody.velocity = new Vector3(0,0,0);
+					// Animacion
 				}
 				attackCooldownTimer += Time.deltaTime;
 			}
@@ -138,7 +141,7 @@ public class UnitCerdo : MonoBehaviour {
 				rigidbody.AddForce(targetDirection * speed * 100f * Time.deltaTime);
 
 				if(Physics.Raycast(transform.position-Vector3.down, targetDirection, 3f, obstacles)){
-					if (Physics.Raycast (transform.position-Vector3.down, Vector3.down, 0.95f, obstacles)){
+					if (Physics.Raycast (transform.position-Vector3.down, Vector3.down, 2f, obstacles)){
 						//rigidbody.AddForce(Vector3.up * jumpForce); 
 						rigidbody.velocity = new Vector3(0, jumpForce, 0);
 

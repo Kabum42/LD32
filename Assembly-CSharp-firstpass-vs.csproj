@@ -91,8 +91,8 @@
      <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
      <None Include="Assets\Models\Ink.shader" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Prefabs\test.txt" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />

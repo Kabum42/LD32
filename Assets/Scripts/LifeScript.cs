@@ -15,18 +15,21 @@ public class LifeScript : MonoBehaviour {
 	
 		targetableMask = LayerMask.GetMask("Targetable");
 
-		GameObject whateverGameObject = this.gameObject.transform.FindChild("default").gameObject;
+		//GameObject whateverGameObject = this.gameObject.transform.FindChild("default").gameObject;
 		
-		MeshRenderer gameObjectRenderer = whateverGameObject.GetComponent<MeshRenderer>();
-		Material newMaterial = new Material(Shader.Find("Standard"));
+		//MeshRenderer gameObjectRenderer = whateverGameObject.GetComponent<MeshRenderer>();
+		//Material newMaterial = new Material(Shader.Find("Standard"));
 
-		newMaterial.mainTexture = whateverGameObject.GetComponent<MeshRenderer> ().material.mainTexture;
-		gameObjectRenderer.material = newMaterial;
+		//newMaterial.mainTexture = whateverGameObject.GetComponent<MeshRenderer> ().material.mainTexture;
+		//gameObjectRenderer.material = newMaterial;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		this.transform.LookAt (player.transform);
+		this.transform.eulerAngles = new Vector3 (this.transform.eulerAngles.x, this.transform.eulerAngles.y +180, this.transform.eulerAngles.z);
 
 	}
 
@@ -55,7 +58,16 @@ public class LifeScript : MonoBehaviour {
 
 	void Highlight() {
 
-		this.gameObject.transform.FindChild("default").gameObject.GetComponent<MeshRenderer> ().material.color = new Color (1f, 1f, 1f);
+
+
+		SkinnedMeshRenderer[] meshes = GetComponentsInChildren<SkinnedMeshRenderer> ();
+
+		foreach (SkinnedMeshRenderer mesh in meshes) {
+			mesh.material.color = new Color (1f, 1f, 1f);
+
+		}
+
+		//this.gameObject.transform.FindChild("default").gameObject.GetComponent<MeshRenderer> ().material.color = new Color (1f, 1f, 1f);
 
 		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
@@ -63,7 +75,10 @@ public class LifeScript : MonoBehaviour {
 		if (Physics.Raycast(camRay, out hit, 100f, targetableMask))
 		{
 			if (hit.transform.gameObject == this.gameObject) {
-				this.gameObject.transform.FindChild("default").gameObject.GetComponent<MeshRenderer> ().material.color = new Color (1f, 0f, 0f);
+				//this.gameObject.transform.FindChild("default").gameObject.GetComponent<MeshRenderer> ().material.color = new Color (1f, 0f, 0f);
+				foreach (SkinnedMeshRenderer mesh in meshes) {
+					mesh.material.color = new Color (1f, 0f, 0f);
+				}
 			}
 		}
 

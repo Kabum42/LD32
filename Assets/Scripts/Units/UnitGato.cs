@@ -5,7 +5,7 @@ public class UnitGato : MonoBehaviour {
 
 	public Transform target;
 	Rigidbody targetRigidbody;
-	float jumpForce = 8f;
+	float jumpForce = 8f * 2f;
 	Rigidbody rigidbody;
 	float speed = 5f;
 	Vector3[] path;
@@ -148,7 +148,7 @@ public class UnitGato : MonoBehaviour {
 
 
 				if(Physics.Raycast(transform.position+Vector3.up, targetDirection, 3f, obstacles)){
-					if (Physics.Raycast (transform.position-Vector3.down, Vector3.down, 0.95f, obstacles)){
+					if (Physics.Raycast (transform.position-Vector3.down, Vector3.down, 2f, obstacles)){
 						rigidbody.velocity = new Vector3(0, jumpForce, 0);
 					}
 				}
