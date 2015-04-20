@@ -30,29 +30,50 @@ public class JumpScript : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.Space))
 			keyReleased = true;
 
-		if (my_rigidbody.velocity.y < -0.1f && !(this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Slaughtering"))) {
+		if (my_rigidbody.velocity.y < -0.1f && !this.GetComponent<Animator> ().GetBool("Falling") && !(this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Slaughtering"))) {
+
+			Debug.Log ("LOL");
+
+			this.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
+			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
+			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
+			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().CrossFade("Falling", 0.1f);
+
 			this.GetComponent<Animator> ().SetBool ("Falling", true);
-			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", true);
-			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", true);
-			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", true);
 		} else {
-			this.GetComponent<Animator> ().SetBool ("Falling", false);
-			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", false);
-			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", false);
-			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", false);
-			/*
+			//this.GetComponent<Animator> ().SetBool ("Falling", false);
+			//this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", false);
+			//this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", false);
+			//this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", false);
+
 			if (this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Falling")) {
+
+				//Debug.Log ("LOL");
+				/*
+				this.GetComponent<Animator> ().CrossFade("Idle", 0.3f);
+				this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().CrossFade("Idle", 0.3f);
+				this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().CrossFade("Idle", 0.3f);
+				this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().CrossFade("Idle", 0.3f);
+				*/
+
 				this.GetComponent<Animator> ().Play("Idle");
 				this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Idle");
+				this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Idle");
+				this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Idle");
+
 			}
-			*/
+
 		}
 	}
 
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-
+		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 0.1f, obstacles)) {
+			canJump = true;
+			canDoubleJump = false;
+			canBounce = false;
+		}
 
 
 
@@ -72,7 +93,7 @@ public class JumpScript : MonoBehaviour
 				bounceTimer += 0.1f;
 			}
 	
-			if (my_rigidbody.velocity.y <= 0) {
+			if (my_rigidbody.velocity.y <= 0 ) {
 				
 				if (canJump) {
 					
@@ -80,10 +101,13 @@ public class JumpScript : MonoBehaviour
 					canJump = false;
 					canDoubleJump = true;
 					keyReleased = false;
-					this.GetComponent<Animator> ().Play("Jumping");
-					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Jumping");
-					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Jumping");
-					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Jumping");
+
+					this.GetComponent<Animator> ().SetBool ("Falling", false);
+
+					this.GetComponent<Animator> ().CrossFade("Jumping", 0.1f);
+					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().CrossFade("Jumping", 0.1f);
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().CrossFade("Jumping", 0.1f);
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().CrossFade("Jumping", 0.1f);
 				}
 				
 				if (canDoubleJump && keyReleased) {
@@ -92,10 +116,13 @@ public class JumpScript : MonoBehaviour
 					my_rigidbody.AddForce (Vector3.up * doubleJumpMagnitude, ForceMode.Impulse);
 					canDoubleJump = false;
 					keyReleased = false;
-					this.GetComponent<Animator> ().Play("Balling");
-					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Balling");
-					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Balling");
-					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Balling");
+
+					this.GetComponent<Animator> ().SetBool ("Falling", false);
+
+					this.GetComponent<Animator> ().CrossFade("Balling", 0.1f);
+					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().CrossFade("Balling", 0.1f);
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().CrossFade("Balling", 0.1f);
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().CrossFade("Balling", 0.1f);
 				}
 			}	
 		}
