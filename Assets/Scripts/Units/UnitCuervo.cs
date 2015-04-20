@@ -33,7 +33,7 @@ public class UnitCuervo : MonoBehaviour {
 		if (!attacking){
 			// Busqueda de camino / Atacar
 			if(Vector3.Distance(transform.position, currentPathPoint) < 2.5f){
-				if (pathCount >= pathFee && !Physics.Raycast(transform.position + Vector3.up, (target.transform.position  + Vector3.up - transform.position  + Vector3.up).normalized, Vector3.Distance(transform.position, target.transform.position), obstacles)){
+				if (pathCount >= pathFee && !Physics.Raycast(transform.position + Vector3.up, (target.transform.position - transform.position).normalized, Vector3.Distance(transform.position, target.transform.position), obstacles)){
 					pathCount = 0 + (int)Random.value * 3;
 					attacking = true;
 					rigidbody.velocity = (target.transform.position - transform.position).normalized;
