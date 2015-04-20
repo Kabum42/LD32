@@ -37,7 +37,7 @@ public class particleCollision : MonoBehaviour
 				Vector3 pos = collisionEvents [i].intersection;
 				
 				projNum = projectorManager.currentProj;
-				if (projNum >= projectorManager.MAX_PROJ)
+				if (projNum >= projectorManager.MAX_PROJ - 1)
 					projNum = 0;
 				
 				projectorManager.currentProj = projNum;
@@ -56,8 +56,7 @@ public class particleCollision : MonoBehaviour
 				                         
 				direction.Normalize ();   
 				
-				                         
-				                                
+       
 				projectorManager.projectorArray [projNum].transform.LookAt (projectorManager.projectorArray [projNum].transform.position + direction);
 				                           
 				

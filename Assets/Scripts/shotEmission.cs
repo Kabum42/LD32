@@ -7,7 +7,7 @@ public class shotEmission : MonoBehaviour
 	GameObject myParticles;
 	GameObject myBlood;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		myTransform = GetComponent<Transform> ();
 		
