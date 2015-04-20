@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Node : IHeapItem<Node> {
+public class NodeB : IBHeapItem<NodeB> {
 
 	public bool walkable;//int height;
 	public int height;
@@ -10,16 +10,10 @@ public class Node : IHeapItem<Node> {
 	public int gCost;
 	public int hCost;
 
-	public Node parent;
+	public NodeB parent;
 	int heapIndex;
 
 	public int gridX, gridY;
-
-	public int fCost {
-		get {
-			return gCost + hCost;
-		}
-	}
 
 	public int BfCost {
 		get {
@@ -27,7 +21,7 @@ public class Node : IHeapItem<Node> {
 		}
 	}
 
-	public Node(int _height/*bool _walkable*/, Vector3 _worldPos, int _gridX, int _gridY){
+	public NodeB(int _height/*bool _walkable*/, Vector3 _worldPos, int _gridX, int _gridY){
 		//walkable = _walkable;
 		height = _height;
 		worldPos = _worldPos;
@@ -44,10 +38,10 @@ public class Node : IHeapItem<Node> {
 		}
 	}
 
-	public int CompareTo(Node nodeToCompare){
-		int compare = fCost.CompareTo(nodeToCompare.fCost);
+	public int CompareTo(NodeB nodeToCompare){
+		int compare = BfCost.CompareTo(nodeToCompare.BfCost);
 		if (compare == 0) {
-			compare = hCost.CompareTo(nodeToCompare.hCost);
+			compare = -hCost.CompareTo(nodeToCompare.hCost);
 		}
 		return -compare;
 	}

@@ -15,10 +15,7 @@ public class UnitGato : MonoBehaviour {
 
 	float elapsedTime = 0f;
 	float reactionTime;
-
-	/*void Start(){
-		PathRequestManager.RequestPath (transform.position, target.position, OnPathFound);
-	}*/
+	
 
 	void Awake(){
 		rigidbody = GetComponent<Rigidbody>();
@@ -31,7 +28,7 @@ public class UnitGato : MonoBehaviour {
 	void FixedUpdate(){
 		if (elapsedTime >= reactionTime){
 			if (Vector3.Distance(transform.position, target.position) > 3){
-				PathRequestManager.RequestPath (transform.position, target.position, OnPathFound);
+				PathRequestManagerO.RequestPath (transform.position, target.position, OnPathFound);
 				reactionTime = Vector3.Distance(transform.position, target.position) * 0.04f;
 				if (reactionTime < 0.1f) reactionTime = 0.1f;
 			}
@@ -41,12 +38,10 @@ public class UnitGato : MonoBehaviour {
 
 	}
 
-	public void OnPathFound(Vector3[] newPath, bool pathSuccessful){
-		if (pathSuccessful){
-			path = newPath;
-			StopCoroutine("FollowPath");
-			StartCoroutine("FollowPath");
-		}
+	public void OnPathFound(Vector3[] newPath){
+		path = newPath;
+		StopCoroutine("FollowPath");
+		StartCoroutine("FollowPath");
 	}
 
 	IEnumerator FollowPath(){
@@ -71,20 +66,14 @@ public class UnitGato : MonoBehaviour {
 				}
 				Vector3 targetDirection = (currentWaypoint - transform.position).normalized;
 				targetDirection.y *= 0f;
-				//transform.position = Vector3.MoveTowards(transform.position,currentWaypoint, speed * Time.deltaTime);
+
 				rigidbody.AddForce(targetDirection * speed * 100f * Time.deltaTime);
-				//transform.Rotate(Vector3.up * Vector3.Angle(transform.forward, (currentWaypoint - transform.position).normalized));
+
 
 				if(Physics.Raycast(transform.position-Vector3.down, targetDirection, 3f, obstacles)){
 					if (Physics.Raycast (transform.position-Vector3.down, Vector3.down, 0.95f, obstacles)){
-						//rigidbody.AddForce(Vector3.up * jumpForce); 
 						rigidbody.velocity = new Vector3(0, jumpForce, 0);
-
-
 					}
-					//transform.position = Vector3.Lerp (transform.position, transform.position + Vector3.up * jumpForce, Time.deltaTime);
-					//rigidbody.velocity = new Vector3(0, jumpForce, 0);
-					//rigidbody.inertiaTensor = 
 				}
 				
 				yield return null;
