@@ -9,7 +9,7 @@ public class JumpScript : MonoBehaviour
 	public bool canJump = true;
 	public bool canDoubleJump = false;
 	public bool canBounce = false;
-	float hitDist = 2;
+	float hitDist = 0.1f;
 	public float bounceDist = 500;
 	public float verticalJump = 400;
 	bool keyReleased = false;
@@ -25,17 +25,47 @@ public class JumpScript : MonoBehaviour
 		my_rigidbody = GetComponent<Rigidbody> ();
 		obstacles = LayerMask.GetMask ("Obstacle");
 	}
-	
+
+	void Update() {
+		if (Input.GetKeyUp (KeyCode.Space))
+			keyReleased = true;
+
+		if (my_rigidbody.velocity.y < -0.1f && !(this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Slaughtering"))) {
+			this.GetComponent<Animator> ().SetBool ("Falling", true);
+			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", true);
+			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", true);
+			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", true);
+		} else {
+			this.GetComponent<Animator> ().SetBool ("Falling", false);
+			this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().SetBool ("Falling", false);
+			this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().SetBool ("Falling", false);
+			this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().SetBool ("Falling", false);
+			/*
+			if (this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("Falling")) {
+				this.GetComponent<Animator> ().Play("Idle");
+				this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Idle");
+			}
+			*/
+		}
+	}
+
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
-		if (Input.GetKey (KeyCode.Space)) {
+
+
+
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
 		
 			if (canBounce && keyReleased) {
-				my_rigidbody.velocity = new Vector3 (0, 0, 0);
-				my_rigidbody.AddForce (bounceDist * normalDir + new Vector3 (0, verticalJump, 0), ForceMode.Impulse);
-				canBounce = false;
-				bounceTimer = 0;
+
+				if (!Physics.Raycast (transform.position, -Vector3.up, out hit, 0.5f, obstacles)) {
+					my_rigidbody.velocity = new Vector3 (0, 0, 0);
+					my_rigidbody.AddForce (bounceDist * normalDir + new Vector3 (0, verticalJump, 0), ForceMode.Impulse);
+					canBounce = false;
+					bounceTimer = 0;
+				}
 			}
 			
 			if (bounceTimer <= 0.5) {
@@ -50,6 +80,10 @@ public class JumpScript : MonoBehaviour
 					canJump = false;
 					canDoubleJump = true;
 					keyReleased = false;
+					this.GetComponent<Animator> ().Play("Jumping");
+					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Jumping");
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Jumping");
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Jumping");
 				}
 				
 				if (canDoubleJump && keyReleased) {
@@ -58,35 +92,38 @@ public class JumpScript : MonoBehaviour
 					my_rigidbody.AddForce (Vector3.up * doubleJumpMagnitude, ForceMode.Impulse);
 					canDoubleJump = false;
 					keyReleased = false;
+					this.GetComponent<Animator> ().Play("Balling");
+					this.GetComponent<SkeletonScript> ().feet.GetComponent<Animator> ().Play("Balling");
+					this.GetComponent<SkeletonScript> ().leftHand.GetComponent<Animator> ().Play("Balling");
+					this.GetComponent<SkeletonScript> ().rightHand.GetComponent<Animator> ().Play("Balling");
 				}
 			}	
 		}
 		
-		if (Input.GetKeyUp (KeyCode.Space))
-			keyReleased = true;
+
 
 		//check collision with walls an apply forces
 		
 		if (!canJump && keyReleased && bounceTimer > 0.5) {
-			if (Physics.Raycast (transform.position, Vector3.forward, out hit, hitDist, obstacles)) {
+			if (Physics.Raycast (transform.position, Vector3.forward, out hit, 1, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, hitDist, obstacles)) {
+			} else if (Physics.Raycast (transform.position, -Vector3.forward, out hit, 1, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, hitDist, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.left, out hit, 1, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
 				normalDir = hit.normal;
 				
-			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, hitDist, obstacles)) {
+			} else if (Physics.Raycast (transform.position, Vector3.right, out hit, 1, obstacles)) {
 				canDoubleJump = false;
 				canJump = false;
 				canBounce = true;
