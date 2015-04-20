@@ -52,9 +52,12 @@ public class HeapO<T> where T : IOHeapItem<T> {
 				swapIndex = childIndexLeft;
 
 				if (childIndexRight < currentItemCount) {
-					if (items[childIndexLeft].CompareTo (items[childIndexRight]) < 0) {
+					int tentative = items[childIndexLeft].CompareTo (items[childIndexRight]);
+					if (tentative < 0) {
 						swapIndex = childIndexRight;
 					}
+					else if(tentative == 0)
+						if (UnityEngine.Random.value > 0.5f) swapIndex = childIndexRight;
 				}
 
 				if (item.CompareTo (items[swapIndex]) < 0) {

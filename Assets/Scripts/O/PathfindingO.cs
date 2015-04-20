@@ -7,9 +7,8 @@ public class PathfindingO : MonoBehaviour {
 	
 	PathRequestManagerO requestManager;
 	GridO grid;
-	int searchRange = 50;
+	int searchRange = 100;
 	int startingDistance;
-	int freeRange = 25;
 
 	void Awake() {
 		requestManager = GetComponent<PathRequestManagerO>();
@@ -41,9 +40,9 @@ public class PathfindingO : MonoBehaviour {
 
 			closedSet.Add(currentNode);
 
-			foreach (NodeO neighbour in grid.GetNeighbours(currentNode, startingDistance, freeRange)){
+			foreach (NodeO neighbour in grid.GetNeighbours(currentNode)){
 
-				if (neighbour.height - currentNode.height > 1 || neighbour.hCost < startingDistance - freeRange || neighbour.hCost > startingDistance + freeRange || closedSet.Contains (neighbour)){
+				if (neighbour.height - currentNode.height > 1 || closedSet.Contains (neighbour)){
 					continue;
 				}
 
@@ -52,6 +51,7 @@ public class PathfindingO : MonoBehaviour {
 					neighbour.gCost = newMovementCostToNeighbour;
 					neighbour.hCost = GetDistance(neighbour, targetNode);
 					neighbour.parent = currentNode;
+					neighbour.startingDistance = startingDistance;
 
 					if (!openSet.Contains (neighbour))
 						openSet.Add (neighbour);

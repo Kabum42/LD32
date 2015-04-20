@@ -55,7 +55,7 @@ public class GridO : MonoBehaviour {
 	}
 
 
-	public List<NodeO> GetNeighbours(NodeO node, int startingDistance, int freeRange){
+	public List<NodeO> GetNeighbours(NodeO node){
 		List<NodeO> neighbours = new List<NodeO>();
 
 		for (int x = -1; x <= 1; x++){
@@ -67,7 +67,7 @@ public class GridO : MonoBehaviour {
 				int checkY = node.gridY + y;
 
 				if(checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY){
-					if(grid[checkX, checkY].height - node.height <= 1 && grid[checkX, checkY].hCost > startingDistance - freeRange && grid[checkX, checkY].hCost < startingDistance + freeRange) //walkable
+					if(grid[checkX, checkY].height - node.height <= 1) //walkable
 						neighbours.Add(grid[checkX, checkY]);
 				}
 

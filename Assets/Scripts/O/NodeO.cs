@@ -15,9 +15,11 @@ public class NodeO : IOHeapItem<NodeO> {
 
 	public int gridX, gridY;
 
+	public int startingDistance;
+
 	public int OfCost {
 		get {
-			return gCost - hCost;
+			return Mathf.Abs(startingDistance - hCost) + gCost;
 		}
 	}
 
@@ -40,9 +42,9 @@ public class NodeO : IOHeapItem<NodeO> {
 
 	public int CompareTo(NodeO nodeToCompare){
 		int compare = OfCost.CompareTo(nodeToCompare.OfCost);
-		if (compare == 0) {
+		/*if (compare == 0) {
 			compare = -hCost.CompareTo(nodeToCompare.hCost);
-		}
+		}*/
 		return -compare;
 	}
 }
