@@ -4,25 +4,25 @@ using System.Collections;
 public class UnitCerdo : MonoBehaviour {
 
 	public Transform target;
-	public Rigidbody targetRigidbody;
+	Rigidbody targetRigidbody;
 	float jumpForce = 8f;
-	public Rigidbody rigidbody;
+	Rigidbody rigidbody;
 	float speed = 5f;
 	Vector3[] path;
 	int targetIndex;
 
-	public float attackRange = 20f;
+	float attackRange = 20f;
 	float attackJump = 20f;
-	public bool ableToAttack = false;
-	public bool chargingAttack = false;
-	public bool attacking = false;
+	bool ableToAttack = false;
+	bool chargingAttack = false;
+	bool attacking = false;
 	float attackTimer = 0f;
 	float attackTimeCharge = 1f;
 	float attackCooldownTimer = 0.0001f; // 'cause of EXPLOSION
 	float attackCooldownMark = 3f;
 
-	public LayerMask obstacles;
-	public LayerMask characters;
+	LayerMask obstacles;
+	LayerMask characters;
 
 	float elapsedTime = 0f;
 	float reactionTime;

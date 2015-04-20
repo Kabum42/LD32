@@ -6,17 +6,17 @@ public class UnitCuervo : MonoBehaviour {
 	public Transform target;
 	Rigidbody targetRigidbody;
 	Rigidbody rigidbody;
-	public float speed = 200f;
-	public float attackSpeed = 350f;
-	public float heightOfFlight = 3f;
-	public float forcedDrag = 1f;
+	float speed = 200f;
+	float attackSpeed = 350f;
+	float heightOfFlight = 3f;
+	float forcedDrag = 1f;
 
-	public LayerMask obstacles;
+	LayerMask obstacles;
 
-	public int pathCount = -1;
+	int pathCount = -1;
 	int pathFee = 3;
 	Vector3 currentPathPoint;
-	public bool attacking = false;
+	bool attacking = false;
 	float stalkRadius = 10f;
 	
 	void Awake(){

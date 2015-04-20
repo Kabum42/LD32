@@ -4,14 +4,14 @@ using System.Collections;
 public class UnitGato : MonoBehaviour {
 
 	public Transform target;
-	public Rigidbody targetRigidbody;
+	Rigidbody targetRigidbody;
 	float jumpForce = 8f;
-	public Rigidbody rigidbody;
+	Rigidbody rigidbody;
 	float speed = 5f;
 	Vector3[] path;
 	int targetIndex;
 
-	public LayerMask obstacles;
+	LayerMask obstacles;
 
 	float elapsedTime = 0f;
 	float reactionTime;
@@ -19,10 +19,10 @@ public class UnitGato : MonoBehaviour {
 	float attackElapsedTime = 0f;
 	float attackSpeed = 1f;
 
-	public int state = 0;
+	int state = 0;
 	float comfortZone = 20f;
 	float comfortZoneThreshold = 5f;
-	public bool followingPath = false;
+	bool followingPath = false;
 	
 
 	void Awake(){

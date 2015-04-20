@@ -4,14 +4,14 @@ using System.Collections;
 public class UnitCabra : MonoBehaviour {
 
 	public Transform target;
-	public Rigidbody targetRigidbody;
+	Rigidbody targetRigidbody;
 	float jumpForce = 8f;
-	public Rigidbody rigidbody;
+	Rigidbody rigidbody;
 	float speed = 12f;
 	Vector3[] path;
 	int targetIndex;
 
-	public LayerMask obstacles;
+	LayerMask obstacles;
 
 	float elapsedTime = 0f;
 	float reactionTime;
